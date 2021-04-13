@@ -10,11 +10,11 @@ apt-get update && \
     unzip /opt/axis2-1.7.9-bin.zip -d /opt && \
     rm /opt/axis2-1.7.9-bin.zip
 
-COPY telephonyService.wsdl /wsdl/telephonyService.wsdl
+COPY devTelephony.wsdl /wsdl/devTelephony.wsdl
 
 ENV JAVA_HOME /usr/lib/jvm/java-7-openjdk-amd64
 EXPOSE 8080
 
-CMD ["/opt/axis2-1.7.9/bin/wsdl2java.sh -p onevault.integr8or.v12 -o /tmp -uri wsdl/telephonyService.wsdl"
+CMD ["/opt/axis2-1.7.9/bin/wsdl2java.sh -p onevault.integr8or.v12 -o /tmp -uri wsdl/devTelephony.wsdl"
 
 CMD ["/opt//axis2-1.7.9/bin/axis2server.sh"]

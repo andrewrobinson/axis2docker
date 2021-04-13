@@ -4,7 +4,22 @@
 docker build -t andrewmcrobinson/axis2 .
 docker run -p 8080:8080 -d andrewmcrobinson/axis2 
 
+
+
+
+
+
+
+
+
+
+
+
+
 docker run --rm --name your_container_name -p 8080:8080 andrewmcrobinson/axis2
+
+java -Xmx128M org.apache.axis.wsdl.WSDL2Java -ponevault.integr8or.v12 -T1.1 -o/home/dev/IdeaProjects/wsdl/src file:/home/dev/IdeaProjects/app-voice-biometrics-listener/core/src/main/resources/wsdl/devTelephony.wsdl
+
 
 
 
