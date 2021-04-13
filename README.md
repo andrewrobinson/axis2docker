@@ -10,7 +10,8 @@ tweak wsdl options as only 2 classes are produced
 ea-ultimate/289/jbr/bin/java -classpath /home/dev/IdeaProjects/wsdl/out/production/wsdl -Xmx128M org.apache.axis.wsdl.WSDL2Java -ponevault.integr8or.v12 -T1.1 -o/home/dev/IdeaProjects/wsdl/src file:/home/dev/IdeaProjects/app-voice-biometrics-listener/core/src/main/resources/wsdl/devTelephony.wsdl
 
 
-
+investigate -T option (what is 1.1? what version do I need?)
+look at existing generated classes
 
 docker build -t andrewmcrobinson/axis2 .
 docker run -p 8080:8080 -v ~/code/axisoutput:/tmp -d andrewmcrobinson/axis2
