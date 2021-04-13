@@ -17,4 +17,4 @@ EXPOSE 8080
 
 CMD ["/opt/axis2-1.7.9/bin/wsdl2java.sh -p onevault.integr8or.v12 -o /tmp -uri wsdl/devTelephony.wsdl"
 
-CMD ["/opt//axis2-1.7.9/bin/axis2server.sh"]
+# CMD ["/opt//axis2-1.7.9/bin/axis2server.sh"]
