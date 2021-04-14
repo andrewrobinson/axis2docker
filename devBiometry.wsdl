@@ -1,0 +1,886 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions name="SoapBiometryServiceV11" targetNamespace="http://tempuri.org/"
+    xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+    xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy"
+    xmlns:wsa10="http://www.w3.org/2005/08/addressing"
+    xmlns:tns="http://tempuri.org/"
+    xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract"
+    xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
+    xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex"
+    xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+    xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata"
+    xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing"
+    xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy"
+    xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl"
+    xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/"
+    xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <wsp:Policy wsu:Id="BasicHttpBinding_SoapBiometryServiceV11_policy">
+        <wsp:ExactlyOne>
+            <wsp:All>
+                <sp:TransportBinding xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+                    <wsp:Policy>
+                        <sp:TransportToken>
+                            <wsp:Policy>
+                                <sp:HttpsToken RequireClientCertificate="false"/>
+                            </wsp:Policy>
+                        </sp:TransportToken>
+                        <sp:AlgorithmSuite>
+                            <wsp:Policy>
+                                <sp:Basic256/>
+                            </wsp:Policy>
+                        </sp:AlgorithmSuite>
+                        <sp:Layout>
+                            <wsp:Policy>
+                                <sp:Strict/>
+                            </wsp:Policy>
+                        </sp:Layout>
+                    </wsp:Policy>
+                </sp:TransportBinding>
+            </wsp:All>
+        </wsp:ExactlyOne>
+    </wsp:Policy>
+    <wsdl:types>
+        <xs:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/"
+            xmlns:xs="http://www.w3.org/2001/XMLSchema">
+            <xs:import namespace="http://schemas.datacontract.org/2004/07/OneVault.Svc.Port"/>
+            <xs:element name="SpeakerCapture">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="clientConfigName" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="compoundCallId" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="agentId" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="agentExtension" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="speakerId" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="adUser" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="speakerLanguage" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="restart" type="xs:boolean"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="SpeakerCaptureResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="SpeakerCaptureResult" nillable="true" type="q1:Response.SpeakerIdCaptured"
+                            xmlns:q1="http://schemas.datacontract.org/2004/07/OneVault.Svc.Port"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="SpeakerUpdate">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="clientConfigName" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="compoundCallId" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="agentId" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="agentExtension" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="speakerId" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="speakerIdNew" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="speakerLanguageNew" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="restart" type="xs:boolean"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="SpeakerUpdateResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="SpeakerUpdateResult" nillable="true" type="q2:Response.SpeakerIdUpdated"
+                            xmlns:q2="http://schemas.datacontract.org/2004/07/OneVault.Svc.Port"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="KbaUpdateV11">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="compoundCallId" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="agentId" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="agentExtension" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="groundTruthIndicator" type="xs:boolean"/>
+                        <xs:element minOccurs="0" name="manualKBA" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="restart" type="xs:boolean"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="KbaUpdateV11Response">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="KbaUpdateV11Result" type="q3:Response.AbiUserMessageCode"
+                            xmlns:q3="http://schemas.datacontract.org/2004/07/OneVault.Svc.Port"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="EndTransaction">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="compoundCallId" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="agentId" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="agentExtension" nillable="true" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="EndTransactionResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="EndTransactionResult" type="q4:Response.AbiUserMessageCode"
+                            xmlns:q4="http://schemas.datacontract.org/2004/07/OneVault.Svc.Port"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="RestartRecording">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="compoundCallId" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="agentId" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="agentExtension" nillable="true" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="RestartRecordingResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="RestartRecordingResult" type="q5:Response.AbiUserMessageCode"
+                            xmlns:q5="http://schemas.datacontract.org/2004/07/OneVault.Svc.Port"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="GetResults">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="compoundCallId" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="requestId" type="xs:long"/>
+                        <xs:element minOccurs="0" name="agentId" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="agentExtension" nillable="true" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="GetResultsResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="GetResultsResult" nillable="true" type="q6:Response.GetResultsV11"
+                            xmlns:q6="http://schemas.datacontract.org/2004/07/OneVault.Svc.Port"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="GetCallLocation">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="agentId" nillable="true" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="GetCallLocationResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="GetCallLocationResult" nillable="true" type="q7:Response.GetCallLocationV11"
+                            xmlns:q7="http://schemas.datacontract.org/2004/07/OneVault.Svc.Port"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="GetAgentName">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="agentId" nillable="true" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="GetAgentNameResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="GetAgentNameResult" nillable="true" type="q8:Response.GetAgentNameV11"
+                            xmlns:q8="http://schemas.datacontract.org/2004/07/OneVault.Svc.Port"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="GetSpeechServerImplementationName">
+                <xs:complexType>
+                    <xs:sequence/>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="GetSpeechServerImplementationNameResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="GetSpeechServerImplementationNameResult" nillable="true" type="q9:Response.GetSpeechServerImplementationNameV11"
+                            xmlns:q9="http://schemas.datacontract.org/2004/07/OneVault.Svc.Port"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="IsTrained">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="clientConfigName" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="compoundCallId" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="agentId" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="agentExtension" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="speakerId" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="adUser" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="speakerLanguage" nillable="true" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="IsTrainedResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="IsTrainedResult" nillable="true" type="q10:Response.IsTrainedV11"
+                            xmlns:q10="http://schemas.datacontract.org/2004/07/OneVault.Svc.Port"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="IsTrainedUpdate">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="clientConfigName" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="compoundCallId" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="agentId" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="agentExtension" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="speakerId" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="speakerIdNew" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="speakerLanguageNew" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="restart" type="xs:boolean"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="IsTrainedUpdateResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="IsTrainedUpdateResult" nillable="true" type="q11:Response.IsTrainedUpdateV11"
+                            xmlns:q11="http://schemas.datacontract.org/2004/07/OneVault.Svc.Port"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:schema>
+        <xs:schema attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://schemas.microsoft.com/2003/10/Serialization/"
+            xmlns:xs="http://www.w3.org/2001/XMLSchema"
+            xmlns:tns="http://schemas.microsoft.com/2003/10/Serialization/">
+            <xs:element name="anyType" nillable="true" type="xs:anyType"/>
+            <xs:element name="anyURI" nillable="true" type="xs:anyURI"/>
+            <xs:element name="base64Binary" nillable="true" type="xs:base64Binary"/>
+            <xs:element name="boolean" nillable="true" type="xs:boolean"/>
+            <xs:element name="byte" nillable="true" type="xs:byte"/>
+            <xs:element name="dateTime" nillable="true" type="xs:dateTime"/>
+            <xs:element name="decimal" nillable="true" type="xs:decimal"/>
+            <xs:element name="double" nillable="true" type="xs:double"/>
+            <xs:element name="float" nillable="true" type="xs:float"/>
+            <xs:element name="int" nillable="true" type="xs:int"/>
+            <xs:element name="long" nillable="true" type="xs:long"/>
+            <xs:element name="QName" nillable="true" type="xs:QName"/>
+            <xs:element name="short" nillable="true" type="xs:short"/>
+            <xs:element name="string" nillable="true" type="xs:string"/>
+            <xs:element name="unsignedByte" nillable="true" type="xs:unsignedByte"/>
+            <xs:element name="unsignedInt" nillable="true" type="xs:unsignedInt"/>
+            <xs:element name="unsignedLong" nillable="true" type="xs:unsignedLong"/>
+            <xs:element name="unsignedShort" nillable="true" type="xs:unsignedShort"/>
+            <xs:element name="char" nillable="true" type="tns:char"/>
+            <xs:simpleType name="char">
+                <xs:restriction base="xs:int"/>
+            </xs:simpleType>
+            <xs:element name="duration" nillable="true" type="tns:duration"/>
+            <xs:simpleType name="duration">
+                <xs:restriction base="xs:duration">
+                    <xs:pattern value="\-?P(\d*D)?(T(\d*H)?(\d*M)?(\d*(\.\d*)?S)?)?"/>
+                    <xs:minInclusive value="-P10675199DT2H48M5.4775808S"/>
+                    <xs:maxInclusive value="P10675199DT2H48M5.4775807S"/>
+                </xs:restriction>
+            </xs:simpleType>
+            <xs:element name="guid" nillable="true" type="tns:guid"/>
+            <xs:simpleType name="guid">
+                <xs:restriction base="xs:string">
+                    <xs:pattern value="[\da-fA-F]{8}-[\da-fA-F]{4}-[\da-fA-F]{4}-[\da-fA-F]{4}-[\da-fA-F]{12}"/>
+                </xs:restriction>
+            </xs:simpleType>
+            <xs:attribute name="FactoryType" type="xs:QName"/>
+            <xs:attribute name="Id" type="xs:ID"/>
+            <xs:attribute name="Ref" type="xs:IDREF"/>
+        </xs:schema>
+        <xs:schema elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/OneVault.Svc.Port"
+            xmlns:xs="http://www.w3.org/2001/XMLSchema"
+            xmlns:tns="http://schemas.datacontract.org/2004/07/OneVault.Svc.Port">
+            <xs:import namespace="http://schemas.microsoft.com/2003/10/Serialization/"/>
+            <xs:import namespace="http://schemas.datacontract.org/2004/07/OneVault.Svc.Contract.Domain.ValueType"/>
+            <xs:complexType name="Response.SpeakerIdCaptured">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="CallId" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="IsTrained" type="xs:boolean"/>
+                    <xs:element minOccurs="0" name="UserMessageCode" type="tns:Response.AbiUserMessageCode"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:element name="Response.SpeakerIdCaptured" nillable="true" type="tns:Response.SpeakerIdCaptured"/>
+            <xs:simpleType name="Response.AbiUserMessageCode">
+                <xs:restriction base="xs:string">
+                    <xs:enumeration value="SubmitSpeakerId">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">1</EnumerationValue>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:enumeration>
+                    <xs:enumeration value="SubmitKbaResult">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">2</EnumerationValue>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:enumeration>
+                    <xs:enumeration value="KbaFailed">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">3</EnumerationValue>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:enumeration>
+                    <xs:enumeration value="AwaitVerification">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">4</EnumerationValue>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:enumeration>
+                    <xs:enumeration value="AwaitEnrollment">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">5</EnumerationValue>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:enumeration>
+                    <xs:enumeration value="ReceiveResults">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">6</EnumerationValue>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:enumeration>
+                    <xs:enumeration value="SpeakerUpdatedKba">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">7</EnumerationValue>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:enumeration>
+                    <xs:enumeration value="SpeakerUpdatedVerify">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">8</EnumerationValue>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:enumeration>
+                    <xs:enumeration value="RestartedRecordingNoSpeaker">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">9</EnumerationValue>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:enumeration>
+                    <xs:enumeration value="RestartedRecordingAwaitingKba">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">10</EnumerationValue>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:enumeration>
+                    <xs:enumeration value="RestartedRecordingEnrolling">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">11</EnumerationValue>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:enumeration>
+                    <xs:enumeration value="RestartedRecordingVerifying">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">12</EnumerationValue>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:enumeration>
+                    <xs:enumeration value="TransactionEnded">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">13</EnumerationValue>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:enumeration>
+                </xs:restriction>
+            </xs:simpleType>
+            <xs:element name="Response.AbiUserMessageCode" nillable="true" type="tns:Response.AbiUserMessageCode"/>
+            <xs:simpleType name="Response.AbiErrorCode">
+                <xs:restriction base="xs:string">
+                    <xs:enumeration value="Unmapped"/>
+                    <xs:enumeration value="CallIdDoesNotExist"/>
+                    <xs:enumeration value="MissingCallId"/>
+                    <xs:enumeration value="DuplicateCallId"/>
+                    <xs:enumeration value="CallIdSpeakerIdConflict"/>
+                    <xs:enumeration value="CallIdAgentConflict"/>
+                    <xs:enumeration value="CallIdExtensionConflict"/>
+                    <xs:enumeration value="AgentIdMissing"/>
+                    <xs:enumeration value="PhoneExtensionMissing"/>
+                    <xs:enumeration value="InvalidClientConfigName"/>
+                    <xs:enumeration value="InvalidVoicePrintTag"/>
+                    <xs:enumeration value="InvalidSpeakerId"/>
+                    <xs:enumeration value="MissingNewSpeakerId"/>
+                    <xs:enumeration value="DuplicateSpeakerCallEvent"/>
+                    <xs:enumeration value="InvalidLanguage"/>
+                    <xs:enumeration value="InvalidCallId"/>
+                    <xs:enumeration value="DuplicateSpeakerUpdateCallEvent"/>
+                    <xs:enumeration value="SpeakerIdConflict"/>
+                    <xs:enumeration value="SpeakerIdNewConflict"/>
+                    <xs:enumeration value="InvalidGroundTruthIndicator"/>
+                    <xs:enumeration value="DuplicateGroundTruthEvent"/>
+                    <xs:enumeration value="CallDisconnected"/>
+                    <xs:enumeration value="TransactionTimeout"/>
+                    <xs:enumeration value="SequenceConflict"/>
+                    <xs:enumeration value="SystemError"/>
+                    <xs:enumeration value="ConnectionError"/>
+                    <xs:enumeration value="SpeakerIdMismatch"/>
+                    <xs:enumeration value="LicenceExceeded"/>
+                </xs:restriction>
+            </xs:simpleType>
+            <xs:element name="Response.AbiErrorCode" nillable="true" type="tns:Response.AbiErrorCode"/>
+            <xs:complexType name="Response.SpeakerIdUpdated">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="CallId" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="IsTrained" type="xs:boolean"/>
+                    <xs:element minOccurs="0" name="UserMessageCode" type="tns:Response.AbiUserMessageCode"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:element name="Response.SpeakerIdUpdated" nillable="true" type="tns:Response.SpeakerIdUpdated"/>
+            <xs:complexType name="Response.GetResultsV11">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="BiometricDecision" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="BiometricFlag" type="xs:boolean"/>
+                    <xs:element minOccurs="0" name="BiometricLowerThreshold" type="xs:int"/>
+                    <xs:element minOccurs="0" name="BiometricProcess" type="tns:Response.BiometricProcess"/>
+                    <xs:element minOccurs="0" name="BiometricScore" type="xs:int"/>
+                    <xs:element minOccurs="0" name="BiometricUpperThreshold" type="xs:int"/>
+                    <xs:element minOccurs="0" name="EnrolStatus" type="q1:Speech.EnrolStatusV11"
+                        xmlns:q1="http://schemas.datacontract.org/2004/07/OneVault.Svc.Contract.Domain.ValueType"/>
+                    <xs:element minOccurs="0" name="EnrolStatusReason" type="q2:Speech.InvalidityReasonV11"
+                        xmlns:q2="http://schemas.datacontract.org/2004/07/OneVault.Svc.Contract.Domain.ValueType"/>
+                    <xs:element minOccurs="0" name="ErrorCode" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="ErrorMessage" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="IsComplete" type="xs:boolean"/>
+                    <xs:element minOccurs="0" name="IsTrained" type="xs:boolean"/>
+                    <xs:element minOccurs="0" name="MinNetAudioRequired" type="xs:float"/>
+                    <xs:element minOccurs="0" name="NetAudio" type="xs:float"/>
+                    <xs:element minOccurs="0" name="SessionId" type="xs:long"/>
+                    <xs:element minOccurs="0" name="SpeakerId" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="VerificationDecision" type="q3:Speech.VerificationDecisionV11"
+                        xmlns:q3="http://schemas.datacontract.org/2004/07/OneVault.Svc.Contract.Domain.ValueType"/>
+                    <xs:element minOccurs="0" name="VerificationDecisionReason" type="q4:Speech.VerificationDecisionReasonV11"
+                        xmlns:q4="http://schemas.datacontract.org/2004/07/OneVault.Svc.Contract.Domain.ValueType"/>
+                    <xs:element minOccurs="0" name="VoiceBioException" nillable="true" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:element name="Response.GetResultsV11" nillable="true" type="tns:Response.GetResultsV11"/>
+            <xs:simpleType name="Response.BiometricProcess">
+                <xs:restriction base="xs:string">
+                    <xs:enumeration value="NotSet"/>
+                    <xs:enumeration value="Enrol"/>
+                    <xs:enumeration value="Verify"/>
+                </xs:restriction>
+            </xs:simpleType>
+            <xs:element name="Response.BiometricProcess" nillable="true" type="tns:Response.BiometricProcess"/>
+            <xs:complexType name="Response.GetCallLocationV11">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="SVCIPAddress" nillable="true" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:element name="Response.GetCallLocationV11" nillable="true" type="tns:Response.GetCallLocationV11"/>
+            <xs:complexType name="Response.GetAgentNameV11">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="AgentName" nillable="true" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:element name="Response.GetAgentNameV11" nillable="true" type="tns:Response.GetAgentNameV11"/>
+            <xs:complexType name="Response.GetSpeechServerImplementationNameV11">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="ImplementationName" nillable="true" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:element name="Response.GetSpeechServerImplementationNameV11" nillable="true" type="tns:Response.GetSpeechServerImplementationNameV11"/>
+            <xs:complexType name="Response.IsTrainedV11">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="CallId" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="IsTrained" type="xs:boolean"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:element name="Response.IsTrainedV11" nillable="true" type="tns:Response.IsTrainedV11"/>
+            <xs:complexType name="Response.IsTrainedUpdateV11">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="IsTrained" type="xs:boolean"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:element name="Response.IsTrainedUpdateV11" nillable="true" type="tns:Response.IsTrainedUpdateV11"/>
+        </xs:schema>
+        <xs:schema elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/OneVault.Svc.Contract.Domain.ValueType"
+            xmlns:xs="http://www.w3.org/2001/XMLSchema"
+            xmlns:tns="http://schemas.datacontract.org/2004/07/OneVault.Svc.Contract.Domain.ValueType">
+            <xs:simpleType name="Speech.EnrolStatusV11">
+                <xs:restriction base="xs:string">
+                    <xs:enumeration value="MoreAudioRequired"/>
+                    <xs:enumeration value="Trained"/>
+                    <xs:enumeration value="Full"/>
+                </xs:restriction>
+            </xs:simpleType>
+            <xs:element name="Speech.EnrolStatusV11" nillable="true" type="tns:Speech.EnrolStatusV11"/>
+            <xs:simpleType name="Speech.InvalidityReasonV11">
+                <xs:restriction base="xs:string">
+                    <xs:enumeration value="NotSet"/>
+                    <xs:enumeration value="InternalError"/>
+                    <xs:enumeration value="AudioOK"/>
+                    <xs:enumeration value="NotEnoughAudio"/>
+                    <xs:enumeration value="InvalidAudio"/>
+                    <xs:enumeration value="AudioTooShort"/>
+                    <xs:enumeration value="AudioTooSoft"/>
+                    <xs:enumeration value="AudioTooLoud"/>
+                    <xs:enumeration value="AudioTooNoisy"/>
+                    <xs:enumeration value="MultiSpeakersDetected"/>
+                    <xs:enumeration value="SyntheticSpeechDetected"/>
+                    <xs:enumeration value="PlaybackIndication"/>
+                    <xs:enumeration value="WrongPassphrase"/>
+                    <xs:enumeration value="FraudsterIndication"/>
+                </xs:restriction>
+            </xs:simpleType>
+            <xs:element name="Speech.InvalidityReasonV11" nillable="true" type="tns:Speech.InvalidityReasonV11"/>
+            <xs:simpleType name="Speech.VerificationDecisionV11">
+                <xs:restriction base="xs:string">
+                    <xs:enumeration value="NotSet"/>
+                    <xs:enumeration value="Mismatch"/>
+                    <xs:enumeration value="Inconclusive"/>
+                    <xs:enumeration value="Match"/>
+                    <xs:enumeration value="Failure"/>
+                    <xs:enumeration value="Unreliable"/>
+                </xs:restriction>
+            </xs:simpleType>
+            <xs:element name="Speech.VerificationDecisionV11" nillable="true" type="tns:Speech.VerificationDecisionV11"/>
+            <xs:simpleType name="Speech.VerificationDecisionReasonV11">
+                <xs:restriction base="xs:string">
+                    <xs:enumeration value="NotSet"/>
+                    <xs:enumeration value="InternalError"/>
+                    <xs:enumeration value="AudioOK"/>
+                    <xs:enumeration value="NotEnoughAudio"/>
+                    <xs:enumeration value="InvalidAudio"/>
+                    <xs:enumeration value="AudioTooShort"/>
+                    <xs:enumeration value="AudioTooSoft"/>
+                    <xs:enumeration value="AudioTooLoud"/>
+                    <xs:enumeration value="AudioTooNoisy"/>
+                    <xs:enumeration value="MultiSpeakersDetected"/>
+                    <xs:enumeration value="SyntheticSpeechDetected"/>
+                    <xs:enumeration value="PlaybackIndication"/>
+                    <xs:enumeration value="ToneDetected"/>
+                    <xs:enumeration value="WrongPassphrase"/>
+                    <xs:enumeration value="FraudsterIndication"/>
+                    <xs:enumeration value="VoiceprintMatch"/>
+                    <xs:enumeration value="VoiceprintMismatch"/>
+                    <xs:enumeration value="VoiceprintInconclusive"/>
+                    <xs:enumeration value="UnreliableDecisionThresholds"/>
+                </xs:restriction>
+            </xs:simpleType>
+            <xs:element name="Speech.VerificationDecisionReasonV11" nillable="true" type="tns:Speech.VerificationDecisionReasonV11"/>
+        </xs:schema>
+    </wsdl:types>
+    <wsdl:message name="SoapBiometryServiceV11_SpeakerCapture_InputMessage">
+        <wsdl:part name="parameters" element="tns:SpeakerCapture"/>
+    </wsdl:message>
+    <wsdl:message name="SoapBiometryServiceV11_SpeakerCapture_OutputMessage">
+        <wsdl:part name="parameters" element="tns:SpeakerCaptureResponse"/>
+    </wsdl:message>
+    <wsdl:message name="SoapBiometryServiceV11_SpeakerCapture_AbiErrorCodeFault_FaultMessage">
+        <wsdl:part name="detail" element="q1:Response.AbiErrorCode"
+            xmlns:q1="http://schemas.datacontract.org/2004/07/OneVault.Svc.Port"/>
+    </wsdl:message>
+    <wsdl:message name="SoapBiometryServiceV11_SpeakerUpdate_InputMessage">
+        <wsdl:part name="parameters" element="tns:SpeakerUpdate"/>
+    </wsdl:message>
+    <wsdl:message name="SoapBiometryServiceV11_SpeakerUpdate_OutputMessage">
+        <wsdl:part name="parameters" element="tns:SpeakerUpdateResponse"/>
+    </wsdl:message>
+    <wsdl:message name="SoapBiometryServiceV11_SpeakerUpdate_AbiErrorCodeFault_FaultMessage">
+        <wsdl:part name="detail" element="q2:Response.AbiErrorCode"
+            xmlns:q2="http://schemas.datacontract.org/2004/07/OneVault.Svc.Port"/>
+    </wsdl:message>
+    <wsdl:message name="SoapBiometryServiceV11_KbaUpdateV11_InputMessage">
+        <wsdl:part name="parameters" element="tns:KbaUpdateV11"/>
+    </wsdl:message>
+    <wsdl:message name="SoapBiometryServiceV11_KbaUpdateV11_OutputMessage">
+        <wsdl:part name="parameters" element="tns:KbaUpdateV11Response"/>
+    </wsdl:message>
+    <wsdl:message name="SoapBiometryServiceV11_KbaUpdateV11_AbiErrorCodeFault_FaultMessage">
+        <wsdl:part name="detail" element="q3:Response.AbiErrorCode"
+            xmlns:q3="http://schemas.datacontract.org/2004/07/OneVault.Svc.Port"/>
+    </wsdl:message>
+    <wsdl:message name="SoapBiometryServiceV11_EndTransaction_InputMessage">
+        <wsdl:part name="parameters" element="tns:EndTransaction"/>
+    </wsdl:message>
+    <wsdl:message name="SoapBiometryServiceV11_EndTransaction_OutputMessage">
+        <wsdl:part name="parameters" element="tns:EndTransactionResponse"/>
+    </wsdl:message>
+    <wsdl:message name="SoapBiometryServiceV11_EndTransaction_AbiErrorCodeFault_FaultMessage">
+        <wsdl:part name="detail" element="q4:Response.AbiErrorCode"
+            xmlns:q4="http://schemas.datacontract.org/2004/07/OneVault.Svc.Port"/>
+    </wsdl:message>
+    <wsdl:message name="SoapBiometryServiceV11_RestartRecording_InputMessage">
+        <wsdl:part name="parameters" element="tns:RestartRecording"/>
+    </wsdl:message>
+    <wsdl:message name="SoapBiometryServiceV11_RestartRecording_OutputMessage">
+        <wsdl:part name="parameters" element="tns:RestartRecordingResponse"/>
+    </wsdl:message>
+    <wsdl:message name="SoapBiometryServiceV11_RestartRecording_AbiErrorCodeFault_FaultMessage">
+        <wsdl:part name="detail" element="q5:Response.AbiErrorCode"
+            xmlns:q5="http://schemas.datacontract.org/2004/07/OneVault.Svc.Port"/>
+    </wsdl:message>
+    <wsdl:message name="SoapBiometryServiceV11_GetResults_InputMessage">
+        <wsdl:part name="parameters" element="tns:GetResults"/>
+    </wsdl:message>
+    <wsdl:message name="SoapBiometryServiceV11_GetResults_OutputMessage">
+        <wsdl:part name="parameters" element="tns:GetResultsResponse"/>
+    </wsdl:message>
+    <wsdl:message name="SoapBiometryServiceV11_GetResults_AbiErrorCodeFault_FaultMessage">
+        <wsdl:part name="detail" element="q6:Response.AbiErrorCode"
+            xmlns:q6="http://schemas.datacontract.org/2004/07/OneVault.Svc.Port"/>
+    </wsdl:message>
+    <wsdl:message name="SoapBiometryServiceV11_GetCallLocation_InputMessage">
+        <wsdl:part name="parameters" element="tns:GetCallLocation"/>
+    </wsdl:message>
+    <wsdl:message name="SoapBiometryServiceV11_GetCallLocation_OutputMessage">
+        <wsdl:part name="parameters" element="tns:GetCallLocationResponse"/>
+    </wsdl:message>
+    <wsdl:message name="SoapBiometryServiceV11_GetCallLocation_AbiErrorCodeFault_FaultMessage">
+        <wsdl:part name="detail" element="q7:Response.AbiErrorCode"
+            xmlns:q7="http://schemas.datacontract.org/2004/07/OneVault.Svc.Port"/>
+    </wsdl:message>
+    <wsdl:message name="SoapBiometryServiceV11_GetAgentName_InputMessage">
+        <wsdl:part name="parameters" element="tns:GetAgentName"/>
+    </wsdl:message>
+    <wsdl:message name="SoapBiometryServiceV11_GetAgentName_OutputMessage">
+        <wsdl:part name="parameters" element="tns:GetAgentNameResponse"/>
+    </wsdl:message>
+    <wsdl:message name="SoapBiometryServiceV11_GetAgentName_AbiErrorCodeFault_FaultMessage">
+        <wsdl:part name="detail" element="q8:Response.AbiErrorCode"
+            xmlns:q8="http://schemas.datacontract.org/2004/07/OneVault.Svc.Port"/>
+    </wsdl:message>
+    <wsdl:message name="SoapBiometryServiceV11_GetSpeechServerImplementationName_InputMessage">
+        <wsdl:part name="parameters" element="tns:GetSpeechServerImplementationName"/>
+    </wsdl:message>
+    <wsdl:message name="SoapBiometryServiceV11_GetSpeechServerImplementationName_OutputMessage">
+        <wsdl:part name="parameters" element="tns:GetSpeechServerImplementationNameResponse"/>
+    </wsdl:message>
+    <wsdl:message name="SoapBiometryServiceV11_GetSpeechServerImplementationName_AbiErrorCodeFault_FaultMessage">
+        <wsdl:part name="detail" element="q9:Response.AbiErrorCode"
+            xmlns:q9="http://schemas.datacontract.org/2004/07/OneVault.Svc.Port"/>
+    </wsdl:message>
+    <wsdl:message name="SoapBiometryServiceV11_IsTrained_InputMessage">
+        <wsdl:part name="parameters" element="tns:IsTrained"/>
+    </wsdl:message>
+    <wsdl:message name="SoapBiometryServiceV11_IsTrained_OutputMessage">
+        <wsdl:part name="parameters" element="tns:IsTrainedResponse"/>
+    </wsdl:message>
+    <wsdl:message name="SoapBiometryServiceV11_IsTrained_AbiErrorCodeFault_FaultMessage">
+        <wsdl:part name="detail" element="q10:Response.AbiErrorCode"
+            xmlns:q10="http://schemas.datacontract.org/2004/07/OneVault.Svc.Port"/>
+    </wsdl:message>
+    <wsdl:message name="SoapBiometryServiceV11_IsTrainedUpdate_InputMessage">
+        <wsdl:part name="parameters" element="tns:IsTrainedUpdate"/>
+    </wsdl:message>
+    <wsdl:message name="SoapBiometryServiceV11_IsTrainedUpdate_OutputMessage">
+        <wsdl:part name="parameters" element="tns:IsTrainedUpdateResponse"/>
+    </wsdl:message>
+    <wsdl:message name="SoapBiometryServiceV11_IsTrainedUpdate_AbiErrorCodeFault_FaultMessage">
+        <wsdl:part name="detail" element="q11:Response.AbiErrorCode"
+            xmlns:q11="http://schemas.datacontract.org/2004/07/OneVault.Svc.Port"/>
+    </wsdl:message>
+    <wsdl:portType name="SoapBiometryServiceV11">
+        <wsdl:operation name="SpeakerCapture">
+            <wsdl:input wsaw:Action="http://tempuri.org/SoapBiometryServiceV11/SpeakerCapture" message="tns:SoapBiometryServiceV11_SpeakerCapture_InputMessage"/>
+            <wsdl:output wsaw:Action="http://tempuri.org/SoapBiometryServiceV11/SpeakerCaptureResponse" message="tns:SoapBiometryServiceV11_SpeakerCapture_OutputMessage"/>
+            <wsdl:fault wsaw:Action="http://tempuri.org/SoapBiometryServiceV11/SpeakerCaptureAbiErrorCodeFault" name="AbiErrorCodeFault" message="tns:SoapBiometryServiceV11_SpeakerCapture_AbiErrorCodeFault_FaultMessage"/>
+        </wsdl:operation>
+        <wsdl:operation name="SpeakerUpdate">
+            <wsdl:input wsaw:Action="http://tempuri.org/SoapBiometryServiceV11/SpeakerUpdate" message="tns:SoapBiometryServiceV11_SpeakerUpdate_InputMessage"/>
+            <wsdl:output wsaw:Action="http://tempuri.org/SoapBiometryServiceV11/SpeakerUpdateResponse" message="tns:SoapBiometryServiceV11_SpeakerUpdate_OutputMessage"/>
+            <wsdl:fault wsaw:Action="http://tempuri.org/SoapBiometryServiceV11/SpeakerUpdateAbiErrorCodeFault" name="AbiErrorCodeFault" message="tns:SoapBiometryServiceV11_SpeakerUpdate_AbiErrorCodeFault_FaultMessage"/>
+        </wsdl:operation>
+        <wsdl:operation name="KbaUpdateV11">
+            <wsdl:input wsaw:Action="http://tempuri.org/SoapBiometryServiceV11/KbaUpdateV11" message="tns:SoapBiometryServiceV11_KbaUpdateV11_InputMessage"/>
+            <wsdl:output wsaw:Action="http://tempuri.org/SoapBiometryServiceV11/KbaUpdateV11Response" message="tns:SoapBiometryServiceV11_KbaUpdateV11_OutputMessage"/>
+            <wsdl:fault wsaw:Action="http://tempuri.org/SoapBiometryServiceV11/KbaUpdateV11AbiErrorCodeFault" name="AbiErrorCodeFault" message="tns:SoapBiometryServiceV11_KbaUpdateV11_AbiErrorCodeFault_FaultMessage"/>
+        </wsdl:operation>
+        <wsdl:operation name="EndTransaction">
+            <wsdl:input wsaw:Action="http://tempuri.org/SoapBiometryServiceV11/EndTransaction" message="tns:SoapBiometryServiceV11_EndTransaction_InputMessage"/>
+            <wsdl:output wsaw:Action="http://tempuri.org/SoapBiometryServiceV11/EndTransactionResponse" message="tns:SoapBiometryServiceV11_EndTransaction_OutputMessage"/>
+            <wsdl:fault wsaw:Action="http://tempuri.org/SoapBiometryServiceV11/EndTransactionAbiErrorCodeFault" name="AbiErrorCodeFault" message="tns:SoapBiometryServiceV11_EndTransaction_AbiErrorCodeFault_FaultMessage"/>
+        </wsdl:operation>
+        <wsdl:operation name="RestartRecording">
+            <wsdl:input wsaw:Action="http://tempuri.org/SoapBiometryServiceV11/RestartRecording" message="tns:SoapBiometryServiceV11_RestartRecording_InputMessage"/>
+            <wsdl:output wsaw:Action="http://tempuri.org/SoapBiometryServiceV11/RestartRecordingResponse" message="tns:SoapBiometryServiceV11_RestartRecording_OutputMessage"/>
+            <wsdl:fault wsaw:Action="http://tempuri.org/SoapBiometryServiceV11/RestartRecordingAbiErrorCodeFault" name="AbiErrorCodeFault" message="tns:SoapBiometryServiceV11_RestartRecording_AbiErrorCodeFault_FaultMessage"/>
+        </wsdl:operation>
+        <wsdl:operation name="GetResults">
+            <wsdl:input wsaw:Action="http://tempuri.org/SoapBiometryServiceV11/GetResults" message="tns:SoapBiometryServiceV11_GetResults_InputMessage"/>
+            <wsdl:output wsaw:Action="http://tempuri.org/SoapBiometryServiceV11/GetResultsResponse" message="tns:SoapBiometryServiceV11_GetResults_OutputMessage"/>
+            <wsdl:fault wsaw:Action="http://tempuri.org/SoapBiometryServiceV11/GetResultsAbiErrorCodeFault" name="AbiErrorCodeFault" message="tns:SoapBiometryServiceV11_GetResults_AbiErrorCodeFault_FaultMessage"/>
+        </wsdl:operation>
+        <wsdl:operation name="GetCallLocation">
+            <wsdl:input wsaw:Action="http://tempuri.org/SoapBiometryServiceV11/GetCallLocation" message="tns:SoapBiometryServiceV11_GetCallLocation_InputMessage"/>
+            <wsdl:output wsaw:Action="http://tempuri.org/SoapBiometryServiceV11/GetCallLocationResponse" message="tns:SoapBiometryServiceV11_GetCallLocation_OutputMessage"/>
+            <wsdl:fault wsaw:Action="http://tempuri.org/SoapBiometryServiceV11/GetCallLocationAbiErrorCodeFault" name="AbiErrorCodeFault" message="tns:SoapBiometryServiceV11_GetCallLocation_AbiErrorCodeFault_FaultMessage"/>
+        </wsdl:operation>
+        <wsdl:operation name="GetAgentName">
+            <wsdl:input wsaw:Action="http://tempuri.org/SoapBiometryServiceV11/GetAgentName" message="tns:SoapBiometryServiceV11_GetAgentName_InputMessage"/>
+            <wsdl:output wsaw:Action="http://tempuri.org/SoapBiometryServiceV11/GetAgentNameResponse" message="tns:SoapBiometryServiceV11_GetAgentName_OutputMessage"/>
+            <wsdl:fault wsaw:Action="http://tempuri.org/SoapBiometryServiceV11/GetAgentNameAbiErrorCodeFault" name="AbiErrorCodeFault" message="tns:SoapBiometryServiceV11_GetAgentName_AbiErrorCodeFault_FaultMessage"/>
+        </wsdl:operation>
+        <wsdl:operation name="GetSpeechServerImplementationName">
+            <wsdl:input wsaw:Action="http://tempuri.org/SoapBiometryServiceV11/GetSpeechServerImplementationName" message="tns:SoapBiometryServiceV11_GetSpeechServerImplementationName_InputMessage"/>
+            <wsdl:output wsaw:Action="http://tempuri.org/SoapBiometryServiceV11/GetSpeechServerImplementationNameResponse" message="tns:SoapBiometryServiceV11_GetSpeechServerImplementationName_OutputMessage"/>
+            <wsdl:fault wsaw:Action="http://tempuri.org/SoapBiometryServiceV11/GetSpeechServerImplementationNameAbiErrorCodeFault" name="AbiErrorCodeFault" message="tns:SoapBiometryServiceV11_GetSpeechServerImplementationName_AbiErrorCodeFault_FaultMessage"/>
+        </wsdl:operation>
+        <wsdl:operation name="IsTrained">
+            <wsdl:input wsaw:Action="http://tempuri.org/SoapBiometryServiceV11/IsTrained" message="tns:SoapBiometryServiceV11_IsTrained_InputMessage"/>
+            <wsdl:output wsaw:Action="http://tempuri.org/SoapBiometryServiceV11/IsTrainedResponse" message="tns:SoapBiometryServiceV11_IsTrained_OutputMessage"/>
+            <wsdl:fault wsaw:Action="http://tempuri.org/SoapBiometryServiceV11/IsTrainedAbiErrorCodeFault" name="AbiErrorCodeFault" message="tns:SoapBiometryServiceV11_IsTrained_AbiErrorCodeFault_FaultMessage"/>
+        </wsdl:operation>
+        <wsdl:operation name="IsTrainedUpdate">
+            <wsdl:input wsaw:Action="http://tempuri.org/SoapBiometryServiceV11/IsTrainedUpdate" message="tns:SoapBiometryServiceV11_IsTrainedUpdate_InputMessage"/>
+            <wsdl:output wsaw:Action="http://tempuri.org/SoapBiometryServiceV11/IsTrainedUpdateResponse" message="tns:SoapBiometryServiceV11_IsTrainedUpdate_OutputMessage"/>
+            <wsdl:fault wsaw:Action="http://tempuri.org/SoapBiometryServiceV11/IsTrainedUpdateAbiErrorCodeFault" name="AbiErrorCodeFault" message="tns:SoapBiometryServiceV11_IsTrainedUpdate_AbiErrorCodeFault_FaultMessage"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="BasicHttpBinding_SoapBiometryServiceV11" type="tns:SoapBiometryServiceV11">
+        <wsp:PolicyReference URI="#BasicHttpBinding_SoapBiometryServiceV11_policy"/>
+        <soap:binding transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="SpeakerCapture">
+            <soap:operation soapAction="http://tempuri.org/SoapBiometryServiceV11/SpeakerCapture" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="AbiErrorCodeFault">
+                <soap:fault use="literal" name="AbiErrorCodeFault" namespace=""/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="SpeakerUpdate">
+            <soap:operation soapAction="http://tempuri.org/SoapBiometryServiceV11/SpeakerUpdate" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="AbiErrorCodeFault">
+                <soap:fault use="literal" name="AbiErrorCodeFault" namespace=""/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="KbaUpdateV11">
+            <soap:operation soapAction="http://tempuri.org/SoapBiometryServiceV11/KbaUpdateV11" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="AbiErrorCodeFault">
+                <soap:fault use="literal" name="AbiErrorCodeFault" namespace=""/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="EndTransaction">
+            <soap:operation soapAction="http://tempuri.org/SoapBiometryServiceV11/EndTransaction" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="AbiErrorCodeFault">
+                <soap:fault use="literal" name="AbiErrorCodeFault" namespace=""/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="RestartRecording">
+            <soap:operation soapAction="http://tempuri.org/SoapBiometryServiceV11/RestartRecording" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="AbiErrorCodeFault">
+                <soap:fault use="literal" name="AbiErrorCodeFault" namespace=""/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="GetResults">
+            <soap:operation soapAction="http://tempuri.org/SoapBiometryServiceV11/GetResults" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="AbiErrorCodeFault">
+                <soap:fault use="literal" name="AbiErrorCodeFault" namespace=""/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="GetCallLocation">
+            <soap:operation soapAction="http://tempuri.org/SoapBiometryServiceV11/GetCallLocation" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="AbiErrorCodeFault">
+                <soap:fault use="literal" name="AbiErrorCodeFault" namespace=""/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="GetAgentName">
+            <soap:operation soapAction="http://tempuri.org/SoapBiometryServiceV11/GetAgentName" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="AbiErrorCodeFault">
+                <soap:fault use="literal" name="AbiErrorCodeFault" namespace=""/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="GetSpeechServerImplementationName">
+            <soap:operation soapAction="http://tempuri.org/SoapBiometryServiceV11/GetSpeechServerImplementationName" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="AbiErrorCodeFault">
+                <soap:fault use="literal" name="AbiErrorCodeFault" namespace=""/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="IsTrained">
+            <soap:operation soapAction="http://tempuri.org/SoapBiometryServiceV11/IsTrained" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="AbiErrorCodeFault">
+                <soap:fault use="literal" name="AbiErrorCodeFault" namespace=""/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="IsTrainedUpdate">
+            <soap:operation soapAction="http://tempuri.org/SoapBiometryServiceV11/IsTrainedUpdate" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="AbiErrorCodeFault">
+                <soap:fault use="literal" name="AbiErrorCodeFault" namespace=""/>
+            </wsdl:fault>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="SoapBiometryServiceV11">
+        <wsdl:port name="BasicHttpBinding_SoapBiometryServiceV11" binding="tns:BasicHttpBinding_SoapBiometryServiceV11">
+            <soap:address location="https://devfssvcw2-agct/BiometryServiceV11/biometry"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>
