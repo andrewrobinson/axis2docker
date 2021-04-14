@@ -14,7 +14,18 @@ investigate -T option (what is 1.1? what version do I need?)
 look at existing generated classes
 
 docker build -t andrewmcrobinson/axis2 .
-docker run -p 8080:8080 -v ~/code/axisoutput:/tmp -d andrewmcrobinson/axis2
+docker run -p 8080:8080 -v ~/code/axisoutput:/axisoutput -d andrewmcrobinson/axis2
+docker ps (to get the container id)
+docker exec -ti d5e063f3ea39 sh -c "echo a && echo b"
+docker exec -ti d5e063f3ea39 sh -c "/opt/axis2-1.7.9/bin/wsdl2java.sh -p onevault.integr8or.v12 -o /axisoutput -uri wsdl/devTelephony.wsdl"
+
+
+# CMD ["/opt/axis2-1.7.9/bin/wsdl2java.sh -p onevault.integr8or.v12 -o /tmp -uri wsdl/devTelephony.wsdl"
+
+
+
+
+
 
 
 https://cxf.apache.org/docs/wsdl-to-java.html
